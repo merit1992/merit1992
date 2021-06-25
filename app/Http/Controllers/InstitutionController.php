@@ -14,7 +14,10 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        //
+        $institutions= institution::latest()->paginate(5);
+
+        return view('institutions.index', compact('institutions'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -24,7 +27,7 @@ class InstitutionController extends Controller
      */
     public function create()
     {
-        //
+        return view('institutions.create');
     }
 
     /**
@@ -35,7 +38,14 @@ class InstitutionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'state_id'=>'required'
+        ]);
+        institution::create($request->all());
+
+        return redirect()->route('institutions.index')
+            ->with('success');
     }
 
     /**
@@ -46,7 +56,7 @@ class InstitutionController extends Controller
      */
     public function show(institution $institution)
     {
-        //
+        return view('institutions.show', compact('institution'));
     }
 
     /**
@@ -57,7 +67,7 @@ class InstitutionController extends Controller
      */
     public function edit(institution $institution)
     {
-        //
+        return view('institutions.edit', compact('institution'));
     }
 
     /**
@@ -69,7 +79,15 @@ class InstitutionController extends Controller
      */
     public function update(Request $request, institution $institution)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'state_id'=>'required'
+        ]);
+        
+        institution::update($request->all());
+        
+        return redirect()->route('institutions.index')
+            ->with('success', 'updated successfully');
     }
 
     /**
@@ -80,6 +98,9 @@ class InstitutionController extends Controller
      */
     public function destroy(institution $institution)
     {
-        //
+        $institution->delete();
+
+        return redirect()->route('institutions.index')
+            ->with('success', 'deleted successfully');
     }
 }
