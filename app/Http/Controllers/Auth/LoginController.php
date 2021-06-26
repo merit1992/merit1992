@@ -36,30 +36,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
-        // $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest')->except('logout');       
     }
-
-
-    // public function showAdminLoginForm()
-    // {
-    //     return view('auth.login', ['url' => 'admin']);
-    // }
-
-    // public function adminLogin(Request $request)
-    // {
-    //    $credentials = $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required|min:8'
-    //     ]);
-
-    //     if(auth('admin')->attempt($credentials, $request->get('remember')))
-    //     {
-    //         return redirect()->intended('/admin');
-    //     }
-
-    //     return back()->withErrors([
-    //         'email' => 'The provided credentials do not match our records.',
-    //     ]);
-    // }
 }

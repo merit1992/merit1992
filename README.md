@@ -54,7 +54,7 @@ The stacks used for the project backend include:
 
 | <b><u>Stack</u></b> | <b><u>Usage</u></b> |
 | :---         | :---         |
-| **`Python 8.0.6`** | Programming language. |
+| **`PHP 8.0.6`** | Programming language. |
 | **`Laravel 8.40`** | General backend |
 | **`MySql`** | Database. |
 

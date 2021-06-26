@@ -45,7 +45,7 @@ class InstitutionController extends Controller
         institution::create($request->all());
 
         return redirect()->route('institutions.index')
-            ->with('success');
+            ->with('status');
     }
 
     /**
@@ -87,7 +87,7 @@ class InstitutionController extends Controller
         institution::update($request->all());
         
         return redirect()->route('institutions.index')
-            ->with('success', 'updated successfully');
+            ->with('status', 'updated successfully');
     }
 
     /**
@@ -101,6 +101,6 @@ class InstitutionController extends Controller
         $institution->delete();
 
         return redirect()->route('institutions.index')
-            ->with('success', 'deleted successfully');
+            ->with('status', 'deleted successfully');
     }
 }

@@ -19,20 +19,45 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+        <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+            <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+                    @if(Auth::guard('admin')->check())
+                        <a href="{{ url('/admin') }}" class="text-sm text-gray-700 underline">Home</a>
+                    @elseif (Auth::guard('web')->check())
+                    <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+
+                    <li class="nav-item dropdown d-inline-block">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ __('Log in') }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-sm text-gray-700" href="{{ route('login') }}">
+                                User (lanlord/student)
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-sm text-gray-700" href="{{ route('admin.login') }}">
+                                Admin
+                            </a>
+                        </div>
+                    </li>
+
+                        {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
                         @endif
-                    @endauth
+                    @endif
                 </div>
             @endif
 

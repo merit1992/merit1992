@@ -14,7 +14,29 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.home');
+    }
+
+    public function showAdminLogin()
+    {
+        return view('admin.login');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8'
+        ]);
+
+        if(auth('admin')->attempt($credentials, $request->get('remember')))
+        {
+            return redirect()->intended('/admin');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     /**
